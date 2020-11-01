@@ -8,6 +8,12 @@ module CuttingEdge
   # Your additional configuration goes here.
   # If you are going to host the repository containing this file publically (e.g. on GitHub), please read:
   # https://github.com/repotag/cutting_edge/blob/master/README.md#Defining-repositories-in-configrb
+  
+  SECRET_TOKEN = ENV['CUTTING_EDGE_TOKEN']
+  require './lib/cutting_edge/repo.rb'
+  REPOSITORIES = {
+    "gitlab/#{ENV['PRIVATE_REPO1_ORG']}/#{ENV['PRIVATE_REPO1_NAME']}" => GitlabRepository.new(org: ENV['PRIVATE_REPO1_ORG'], name: ENV['PRIVATE_REPO1_NAME'], lang: 'python', auth_token: ENV['PRIVATE_REPO1_TOKEN'], hide: ENV['SECRET_REPO1_HIDE_TOKEN'])
+  }
 end
 
 # Configure mail server settings

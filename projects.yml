@@ -1,25 +1,12 @@
-# Example projects.yml file for CuttingEdge
-# For more information and options, see: https://github.com/repotag/cutting_edge
-
 github:
   repotag:
+    rjgit:
+      language: ruby
     cutting_edge:
       language: ruby
-      hide: mysecret
   gollum:
     gollum:
       language: ruby
     gollum-lib:
       locations: [gemspec.rb]
       dependency_types: [runtime, development]
-  singingwolfboy:
-    flask-dance:
-      language: python
-      email: false
-  rust-lang:
-    crates.io:
-      language: rust
-gitlab:
-  cthowl01:
-    team-chess-ruby:
-      locations: [Gemfile]
