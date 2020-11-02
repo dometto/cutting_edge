@@ -12,9 +12,11 @@ module CuttingEdge
   SECRET_TOKEN = ENV['CUTTING_EDGE_TOKEN']
   require './lib/cutting_edge/repo.rb'
   REPOSITORIES = {
-    "gitlab/#{ENV['PRIVATE_REPO1_ORG']}/#{ENV['PRIVATE_REPO1_NAME']}" => GitlabRepository.new(org: ENV['PRIVATE_REPO1_ORG'], name: ENV['PRIVATE_REPO1_NAME'], lang: 'python', auth_token: ENV['PRIVATE_REPO1_TOKEN'], hide: ENV['SECRET_REPO1_HIDE_TOKEN'])
+    "gitlab/#{ENV['PRIVATE_REPO1_ORG']}/#{ENV['PRIVATE_REPO1_NAME']}" => GitlabRepository.new(org: ENV['PRIVATE_REPO1_ORG'], name: ENV['PRIVATE_REPO1_NAME'], lang: 'python', auth_token: ENV['PRIVATE_REPO1_TOKEN'], hide: ENV['SECRET_REPO1_HIDE_TOKEN'])#, email: ENV['PRIVATE_REPO1_MAIL'])
   }
 end
+
+::SemanticLogger.add_appender(io: $stderr)
 
 # Configure mail server settings
 require 'mail'

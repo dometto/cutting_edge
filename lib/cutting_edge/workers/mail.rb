@@ -15,6 +15,8 @@ class MailWorker < GenericWorker
       log_info("Failed to execute email job for #{identifier}: #{dependencies ? dependencies : 'No dependencies found.'} #{'No e-mail address set.' if to_addr.nil?}")
       return nil
     end
+    
+    log_info "DEBUG: #{CuttingEdge::MAIL_FROM}"
 
     Mail.deliver do
       from     "CuttingEdge <#{CuttingEdge::MAIL_FROM}>"
