@@ -16,7 +16,11 @@ class MailWorker < GenericWorker
       return nil
     end
     
-    log_info "DEBUG: #{CuttingEdge::MAIL_FROM}"
+    if diff = delete_from_store("diff-#{identifier}")
+      diff.transform_values! {|v| v == :good_change ? 'green' : 'red' }
+    else
+      diff = {}
+    end
 
     Mail.deliver do
       from     "CuttingEdge <#{CuttingEdge::MAIL_FROM}>"
@@ -32,6 +36,7 @@ class MailWorker < GenericWorker
         body  ERB.new(CuttingEdge::MAIL_TEMPLATE).result_with_hash(
           project: identifier,
           url: CuttingEdge::SERVER_URL,
+          diff: diff,
           specs: dependencies
         )
       end

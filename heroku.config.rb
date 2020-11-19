@@ -16,6 +16,7 @@ module CuttingEdge
   }
 end
 
+# Needed to write to Heroku logs.
 ::SemanticLogger.add_appender(io: $stderr)
 
 # Configure mail server settings

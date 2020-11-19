@@ -55,6 +55,7 @@ module CuttingEdge
   SERVER_URL = "http://#{SERVER_HOST}" unless defined?(SERVER_URL)
   MAIL_TO = false unless defined?(MAIL_TO) # Default address to send email to. If set to false, don't send any e-mails except for repositories that have their 'email' attribute set.
   MAIL_FROM = "cutting_edge@#{SERVER_HOST}" unless defined?(MAIL_FROM)
+  ALWAYS_MAIL = false unless defined?(ALWAYS_MAIL)
    
   class App < Sinatra::Base
     include CuttingEdgeHelpers
@@ -105,7 +106,9 @@ module CuttingEdge
       @name = name
       @svg = url("/#{source}/#{org}/#{name}/svg")
       @svg = "#{@svg}?token=#{@repo.hidden_token}" if @repo.hidden?
-      @md = "[![Cutting Edge Dependency Status](#{@svg} 'Cutting Edge Dependency Status')](#{url("/#{source}/#{org}/#{name}/info")})"
+      info = url("/#{source}/#{org}/#{name}/info")
+      info = "#{info}?token=#{@repo.hidden_token}" if @repo.hidden?
+      @md = "[![Cutting Edge Dependency Status](#{@svg} 'Cutting Edge Dependency Status')](#{info})"
       @colors = {ok: 'green', outdated_patch: 'yellow', outdated_minor: 'orange', outdated_major: 'red', unknown: 'gray'}
       @specs = @store[@repo.identifier]
       @project_url = @repo.url_for_project
